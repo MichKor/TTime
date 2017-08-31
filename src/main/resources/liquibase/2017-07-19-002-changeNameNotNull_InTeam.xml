@@ -1,0 +1,15 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet author="dabekb" id="changeColumnNameNotNull">
+        <addNotNullConstraint columnName="name" tableName="team" />
+    </changeSet>
+
+    <changeSet author="dabekb" id="tagDatabase-changeColumnNameNotNull">
+        <tagDatabase tag="version_1.2"/>
+    </changeSet>
+
+</databaseChangeLog>

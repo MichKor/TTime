@@ -1,0 +1,56 @@
+<div class="teamWrapper">
+
+<div class="create-button">
+    <button type="button" class="btn btn-success btn-lg" ng-click="$ctrl.addTeamModal()"><i class="glyphicon glyphicon-plus"></i> {{'ADD_TEAM' | translate}}</button>
+</div>
+<uib-accordion ng-show="$ctrl.teams.length > 0">
+    <table st-table="displayedCollection" st-safe-src="$ctrl.teams" class="table table-bordered" >
+        <thead>
+        <tr>
+            <th><input st-search="name" class="form-control" placeholder="&#xf002; {{'SEARCH' | translate}}" type="search" style="font-family:Arial, FontAwesome"/></th>
+        </tr>
+        <tr style="visibility: hidden;">
+            <th st-sort="name" st-sort-default="true"/>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="team in displayedCollection">
+            <td class="col-md-11">
+                <div uib-accordion-group class="panel-default" is-open="status.open">
+                    <uib-accordion-heading>
+                        {{ team.name }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                        <div ng-repeat="user in team.users | orderBy: 'user.displayName'">
+                            {{ user.user.displayName }}
+                        </div>
+                </div>
+            </td>
+            <td class="text-center">
+                <div class="btn-group">
+                    <a class="btn btn-primary btn-circle dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-menu-hamburger" title="{{'DROPDOWN_MENU' | translate}}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ng-hide="team.id === $ctrl.defaultTeamId"><a ng-show="$ctrl.isUserAlreadyInTeam(team)" ng-click="$ctrl.setAsDefault(team)"><i class="glyphicon glyphicon-star"></i> {{'SET_DEFAULT' | translate}}</a></li>
+                        <li><a ng-show="$ctrl.hasUserAdminRights(team)" ng-click="$ctrl.editTeamModal(team)"><i class="glyphicon glyphicon-edit"></i> {{'EDIT' | translate}}</a></li>
+                        <li><a ng-show="$ctrl.isTeamLeader(team)" ng-click="$ctrl.deleteTeamModal(team)"><i class="glyphicon glyphicon-trash"></i> {{'DELETE' | translate}}</a></li>
+                        <li ng-hide="$ctrl.isTeamLeader(team)"><a ng-show="$ctrl.isUserAlreadyInTeam(team)" ng-click="$ctrl.leaveTeam(team)"><i class="glyphicon glyphicon-remove"></i> {{'LEAVE' | translate}}</a></li>
+                        <li><a ng-show="$ctrl.notObserving(team)" ng-click="$ctrl.followTeam(team)"><i class="glyphicon glyphicon-eye-open"></i> {{'FOLLOW' | translate}}</a></li>
+                        <li><a ng-show="$ctrl.isUserAlreadyObserving(team)" ng-click="$ctrl.unfollowTeam(team)"><i class="glyphicon glyphicon-eye-close"></i> {{'UNFOLLOW' | translate}}</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="7" st-template="js/pagination.custom.html"></div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</uib-accordion>
+
+</div>

@@ -1,0 +1,66 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title text-center">{{'EDIT_TEAM' | translate}}</h3>
+    </div>
+
+    <form class="form-horizontal" name="editTeamForm" validate-submit="$ctrl.edit()">
+        <div class="modal-body">
+            <validator-error />
+            <div class="col-md-11 col-centered">
+                <label>{{'TEAM_NAME' | translate}}</label>
+                <input type="text" value="{{ $ctrl.team.name }}" class="form-control" id="name" ng-model="$ctrl.team.name" name="TEAM_NAME" required>
+            </div>
+            <div class="col-md-11 col-centered">
+                <label>{{'ADD_USERS' | translate}}</label>
+                <ui-select user-query-changed="$ctrl.queryChanged" on-select="$ctrl.addPerson($item)" ng-model="$ctrl.currentUser" theme="bootstrap" title="{{'CHOOSE_USER' | translate}}">
+                    <ui-select-match placeholder="{{'CHOOSE_USER' | translate}}">{{$select.selected.displayName}}</ui-select-match>
+                    <ui-select-choices repeat="user in $ctrl.users | filter: {displayName: $select.search} | filter: $ctrl.takenUsersName">
+                        <div ng-bind-html="user.displayName | highlight: $select.search"></div>
+                        <small>
+                            E-mail: <span ng-bind-html="''+user.email | highlight: $select.search"></span>
+                        </small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            
+            <div class="col-md-11 col-centered">
+                <label>{{'TEAM_VISIBILITY' | translate}}</label><br>
+                <toggle ng-if="$ctrl.renderToggle" ng-model="$ctrl.team.privateTeam" ng-change="changed()" on="<i class='fa fa-lock'></i> {{'PRIVATE' | translate}}"
+                        off="<i class='fa fa-unlock-alt'></i> {{'PUBLIC' | translate}}" onstyle="btn-success" offstyle="btn-default" class="slow"
+                        title="{{($ctrl.team.privateTeam  ? 'PRIVATE_TEAM' : 'PUBLIC_TEAM') | translate}}">
+                </toggle>
+            </div>
+
+            <div class="col-md-11 col-centered text-center">
+                <h4>
+                    <a href="https://jira.tt.com.pl/secure/ViewProfile.jspa?name={{$ctrl.team.teamLeader.username}}" target="_blank">
+                        <b>{{$ctrl.team.teamLeader.displayName}}</b>
+                    </a> {{'TEAM_LEADER' | translate}}
+                </h4>
+            </div>
+
+            <div class="col-md-10 col-centered" ng-show="$ctrl.team.users.length > 1">
+                <label>{{'OTHER_MEMBERS' | translate}}</label>
+            <table class="table">
+                <tr ng-repeat="user in $ctrl.team.users | orderBy: 'user.displayName'" ng-hide="user.user.id === $ctrl.team.teamLeader.id">
+                    <td class="col-md-2">{{ user.user.displayName }}</td>
+                    <td class="col-md-8">
+                        <button type="button" class="btn btn-danger" ng-click="$ctrl.deleteUser(user)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <button style="width: 255px;" type="button" class="btn btn-info" ng-click="$ctrl.changeAdminRights(user)">
+                            <i ng-class="{'glyphicon glyphicon-remove': user.adminRights, 'glyphicon glyphicon-ok': !user.adminRights}"></i>
+                            <span>{{(user.adminRights == false ? "GIVE_ADMIN_RIGHTS" : "REMOVE_ADMIN_RIGHTS") | translate}}</span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">{{'APPLY' | translate}}</button>
+            <button type="button" class="btn btn-danger" ng-click="$ctrl.cancel()">{{'CANCEL' | translate}}</button>
+        </div>
+    </form>
+</div>

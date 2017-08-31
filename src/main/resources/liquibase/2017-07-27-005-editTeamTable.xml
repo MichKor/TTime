@@ -1,0 +1,19 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet author="dabekb" id="renameColumn">
+        <renameColumn columnDataType="boolean"
+                      newColumnName="private_team"
+                      oldColumnName="is_private"
+                      schemaName="public"
+                      tableName="team"/>
+    </changeSet>
+
+    <changeSet author="dabekb" id="tagDatabase-renameColumn">
+        <tagDatabase tag="version_1.5"/>
+    </changeSet>
+
+</databaseChangeLog>

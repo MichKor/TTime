@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+        <uib-accordion close-others="{{true}}">
+            <h3>{{'DEFAULT_TEAM' | translate}}</h3>
+            <div ng-show="$ctrl.defaultTeam.id !== undefined">
+            <div uib-accordion-group class="panel-default" template-url="js/dashboard/sidebar-team-accordion.template.html">
+                <uib-accordion-heading>
+                    <span ng-click="$ctrl.showTeamsSchedule($ctrl.defaultTeam)">{{$ctrl.defaultTeam.name}}</span>
+                </uib-accordion-heading>
+                <ul class="nav nav-sidebar">
+                    <li ng-repeat="member in $ctrl.defaultTeam.users | orderBy: 'user.username'" ng-click="$ctrl.showSchedule(member.user.id, member.user.displayName)" class="unselectable">
+                        <span class="pull-left">{{member.user.displayName}}</span>
+                        <span class="pull-right">
+                            <interval-display time-interval="$ctrl.displayTime(member.user.id)" class-on-presence="present" class-on-absence="absent" class-on-future-presence="futurePresent" />
+                        </span>
+                    </li>
+                    <span ng-show="$ctrl.defaultTeam.users.length === 0">{{'NO_ONE' | translate}}</span>
+                </ul>
+            </div>
+            </div>
+            <div ng-show="$ctrl.defaultTeam.id === undefined">{{'NO_DEFAULT_TEAM' | translate}}</div>
+            <h3>{{'MY_TEAMS' | translate}}</h3>
+            <div uib-accordion-group class="panel-default" ng-repeat="team in $ctrl.teams | orderBy: 'name'" template-url="js/dashboard/sidebar-team-accordion.template.html">
+                <uib-accordion-heading>
+                    <span ng-click="$ctrl.showTeamsSchedule(team)">{{team.name}}</span>
+                </uib-accordion-heading>
+                <ul class="nav nav-sidebar">
+                    <li ng-repeat="member in team.users | orderBy: 'user.username'" ng-click="$ctrl.showSchedule(member.user.id, member.user.displayName)" class="unselectable">
+                        <span class="pull-left">{{member.user.displayName}}</span>
+                        <span class="pull-right">
+                            <interval-display time-interval="$ctrl.displayTime(member.user.id)" class-on-presence="present" class-on-absence="absent" class-on-future-presence="futurePresent" />
+                        </span>
+                    </li>
+                    <span ng-show="team.users.length === 0">{{'NO_ONE' | translate}}</span>
+                </ul>
+            </div>
+            <div ng-show="$ctrl.teams.length === 0">{{'NO_TEAMS' | translate}}</div>
+            <h3>{{'OBSERVED_TEAMS' | translate}}</h3>
+            <div uib-accordion-group class="panel-default" ng-repeat="team in $ctrl.observedTeams | orderBy: 'name'" template-url="js/dashboard/sidebar-team-accordion.template.html">
+                <uib-accordion-heading>
+                    <span ng-click="$ctrl.showTeamsSchedule(team)">{{team.name}}</span>
+                </uib-accordion-heading>
+                <ul class="nav nav-sidebar">
+                    <li ng-repeat="member in team.users | orderBy: 'user.username'" ng-click="$ctrl.showSchedule(member.user.id, member.user.displayName)" class="unselectable">
+                        <span class="pull-left">{{member.user.displayName}}</span>
+                        <span class="pull-right">
+                            <interval-display time-interval="$ctrl.displayTime(member.user.id)" class-on-presence="present" class-on-absence="absent" class-on-future-presence="futurePresent" />
+                        </span>
+                    </li>
+                    <span ng-show="team.users.length === 0">{{'NO_ONE' | translate}}</span>
+                </ul>
+            </div>
+            <div ng-show="$ctrl.observedTeams.length === 0">{{'NO_TEAMS' | translate}}</div>
+        </uib-accordion>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <p>
+            <div ncy-breadcrumb></div>
+        </p>
+        <div ui-view></div>
+    </div>
+</div>

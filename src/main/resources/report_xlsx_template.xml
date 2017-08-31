@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<workbook>
+    <worksheet name="Template">
+        <section startRow="0" endRow="0" />
+        <loop startRow="1" endRow="1" items="issues" var="issue" varType="pl.com.tt.ttime.rest.model.CSVReportEntry">
+            <section startRow="1" endRow="1">
+                <mapping row="1" col="1">issue.type</mapping>
+                <mapping row="1" col="2">issue.key</mapping>
+                <mapping row="1" col="3">issue.title</mapping>
+                <mapping row="1" col="4">issue.epicLink</mapping>
+                <mapping row="1" col="5">issue.project</mapping>
+                <mapping row="1" col="6">issue.reporter</mapping>
+                <mapping row="1" col="8">issue.dateStart</mapping>
+                <mapping row="1" col="9">issue.author</mapping>
+                <mapping row="1" col="10">issue.timeSpent</mapping>
+                <mapping row="1" col="11">issue.comment</mapping>
+                <mapping row="1" col="12">issue.phase</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0" />
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

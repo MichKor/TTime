@@ -1,0 +1,33 @@
+<table class="table">
+    <thead>
+        <tr>
+            <td>{{'APPELLATIVE' | translate}}</td>
+            <td>{{'MONDAY' | translate}}</td>
+            <td>{{'TUESDAY' | translate}}</td>
+            <td>{{'WEDNESDAY' | translate}}</td>
+            <td>{{'THURSDAY' | translate}}</td>
+            <td>{{'FRIDAY' | translate}}</td>
+            <td>{{'ACTION' | translate}}</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="temp in $ctrl.templates">
+            <td>{{ temp.name }} {{ (temp.id === $ctrl.defaultTemplateId ? 'DEFAULT' : '') | translate }}</td>
+            <td><time-display day="MONDAY" time-intervals="temp.dayWeeks"></time-display></td>
+            <td><time-display day="TUESDAY" time-intervals="temp.dayWeeks"></time-display></td>
+            <td><time-display day="WEDNESDAY" time-intervals="temp.dayWeeks"></time-display></td>
+            <td><time-display day="THURSDAY" time-intervals="temp.dayWeeks"></time-display></td>
+            <td><time-display day="FRIDAY" time-intervals="temp.dayWeeks"></time-display></td>
+            <td>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.setAsDefault(temp)" ng-disabled="temp.id === $ctrl.defaultTemplateId">{{'SET_DEFAULT' | translate}}</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.showEditModal(temp)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'EDIT' | translate}}</button>
+                <button type="button" class="btn btn-danger" ng-click="$ctrl.deleteModal(temp)"><i class="fa fa-trash-o fa-lg"></i> {{'DELETE' | translate}}</button>
+            </td>
+        </tr>
+    </tbody>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-success" ng-click="$ctrl.showEditModal()">{{'ADD_TEMPLATE' | translate}} <i class="fa fa-plus" aria-hidden="true"></i></button>
+        </td>
+    </tr>
+</table>

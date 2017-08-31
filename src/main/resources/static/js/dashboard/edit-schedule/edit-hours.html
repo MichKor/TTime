@@ -1,0 +1,46 @@
+<div>
+    <div class="modal-header">
+        <span ng-cloak><b>{{'EDIT_DAY' | translate}}:</b></span>
+        <span ng-bind="$ctrl.head"></span>
+    </div>
+    <div class="modal-body">
+        <template-for-day day='$ctrl.today' templates="$ctrl.templates"
+                          return-callback="$ctrl.sendTemplate"></template-for-day>
+        <span>
+            <button type="button" class="btn btn-danger"
+                    ng-click="$ctrl.sendAbsence()"
+                    ng-cloak>
+                    {{'ABSENT' | translate}}
+            </button>
+        </span>
+
+        <h2 ng-cloak>{{'HOURS' | translate}}:</h2>
+
+        <div class="form-group">
+            <div class="form-group">
+                <label class="control-label col-sm-4">{{'BEGINNING' | translate}}: </label>
+                <div class="col-sm-6">
+                    <div class="input-group bootstrap-timepicker timepicker">
+                        <input type="text" class="form-control input-small" ng-model="$ctrl.startHour"/>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label ng-cloak class="control-label col-sm-4">{{'END' | translate}}: </label>
+                <div class="col-sm-6">
+                    <div class="input-group bootstrap-timepicker timepicker">
+                        <input type="text" class="form-control input-small" ng-model="$ctrl.endHour">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger glyphicon glyphicon-ok" ng-click="$ctrl.ok()"></button>
+        <button ng-cloak class="btn btn-primary" ng-click="$ctrl.cancel()">{{'CANCEL' | translate}}</button>
+    </div>
+</div>

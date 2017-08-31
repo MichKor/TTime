@@ -1,0 +1,15 @@
+<div>
+    <div class="modal-header">
+        <h4>{{'CHOOSE_TEMPLATE' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <span ng-repeat="template in $ctrl.templates">
+            <button type="button" class="btn .btn-default"
+                    ng-click="$ctrl.sendTemplate(template)">{{template.name}}
+            </button>
+        </span>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary glyphicon glyphicon-remove" ng-click="$ctrl.cancel()"></button>
+    </div>
+</div>

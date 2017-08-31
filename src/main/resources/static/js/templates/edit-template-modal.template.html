@@ -1,0 +1,64 @@
+<div>
+    <div class="modal-header">
+        <h4 ng-show="$ctrl.editMode">{{'EDIT_TEMPLATE' | translate}} <i class="fa fa-table" aria-hidden="true"></i></h4>
+        <h4 ng-show="!$ctrl.editMode">{{'ADD_TEMPLATE' | translate}} <i class="fa fa-table" aria-hidden="true"></i></h4>
+    </div>
+    <form class="form-horizontal" name="editTemplateForm" validate-submit="$ctrl.ok()">
+        <div class="modal-body">
+            <validator-error />
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="name">{{'APPELLATIVE' | translate}}:</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="name" placeholder="{{'APPELLATIVE' | translate}}" ng-model="$ctrl.curTemplate.name" name="APPELLATIVE" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">{{'HOURS' | translate}}: </label>
+                <div class="col-sm-6">
+                    <div class="form-group" ng-repeat="day in $ctrl.weekDays">
+                        <label class="col-sm-4">{{day.localeName}}: </label>
+                        <time-display class="col-sm-8" day="{{day.code}}" time-intervals="$ctrl.curTemplate.dayWeeks" removable="true"></time-display>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">{{'ADD_HOURS' | translate}}:</label>
+                    <div class="col-sm-6"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4">{{'DAY' | translate}}: </label>
+                    <div class="col-sm-6">
+                        <select class="form-control" ng-options="day.code as day.localeName for day in $ctrl.weekDays" ng-model="$ctrl.selectedDay"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4">{{'BEGINNING' | translate}}: </label>
+                    <div class="col-sm-6">
+                        <div class="input-group bootstrap-timepicker timepicker">
+                            <input type="text" class="form-control input-small" ng-model="$ctrl.startHour">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4">{{'END' | translate}}: </label>
+                    <div class="col-sm-6">
+                        <div class="input-group bootstrap-timepicker timepicker">
+                            <input type="text" class="form-control input-small" ng-model="$ctrl.endHour">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4"></div>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.addTimeInterval()"><i class="fa fa-plus" aria-hidden="true"></i> {{'ADD_HOURS' | translate}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> {{'OKAY' | translate}}</button>
+            <button type="button" class="btn" ng-click="$ctrl.cancel()"><i class="fa fa-times" aria-hidden="true"></i> {{'CANCEL' | translate}}</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,186 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="malyskok" id="UsersInsert">
+        <insert tableName="users">
+            <column name="username" value="kamil"/>
+            <column name="password" value="kamil"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="username" value="maciek"/>
+            <column name="password" value="maciek"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="username" value="michal"/>
+            <column name="password" value="michal"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="username" value="bartek"/>
+            <column name="password" value="bartek"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="username" value="radek"/>
+            <column name="password" value="radek"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="malyskok" id="TeamInsert">
+        <insert tableName="team">
+            <column name="name" value="Praktyki"/>
+        </insert>
+
+        <insert tableName="team">
+            <column name="name" value="PB2014-18"/>
+        </insert>
+
+        <insert tableName="team">
+            <column name="name" value="Admin"/>
+        </insert>
+
+    </changeSet>
+
+    <changeSet author="malyskok" id="UserTeamInsert">
+        <insert tableName="user_team">
+            <column name="user_id" value="3"/>
+            <column name="team_id" value="6"/>
+        </insert>
+
+        <insert tableName="user_team">
+            <column name="user_id" value="4"/>
+            <column name="team_id" value="6"/>
+        </insert>
+
+        <insert tableName="user_team">
+            <column name="user_id" value="5"/>
+            <column name="team_id" value="6"/>
+        </insert>
+
+        <insert tableName="user_team">
+            <column name="user_id" value="6"/>
+            <column name="team_id" value="6"/>
+        </insert>
+
+        <insert tableName="user_team">
+            <column name="user_id" value="7"/>
+            <column name="team_id" value="6"/>
+        </insert>
+
+        <insert tableName="user_team">
+            <column name="user_id" value="3"/>
+            <column name="team_id" value="7"/>
+        </insert>
+
+        <insert tableName="user_team">
+            <column name="user_id" value="7"/>
+            <column name="team_id" value="7"/>
+        </insert>
+
+        <insert tableName="user_team">
+            <column name="user_id" value="4"/>
+            <column name="team_id" value="7"/>
+        </insert>
+
+        <insert tableName="user_team">
+            <column name="user_id" value="4"/>
+            <column name="team_id" value="8"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="malyskok" id="UserRolesInsert">
+        <insert tableName="users_roles">
+            <column name="user_id" value="3"/>
+            <column name="role_id" value="2"/>
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="user_id" value="4"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="user_id" value="4"/>
+            <column name="role_id" value="2"/>
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="user_id" value="5"/>
+            <column name="role_id" value="2"/>
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="user_id" value="6"/>
+            <column name="role_id" value="2"/>
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="user_id" value="7"/>
+            <column name="role_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="malyskok" id="FollowedTeamInsert">
+        <insert tableName="followed_team">
+            <column name="user_id" value="3"/>
+            <column name="team_id" value="8"/>
+        </insert>
+
+        <insert tableName="followed_team">
+            <column name="user_id" value="7"/>
+            <column name="team_id" value="8"/>
+        </insert>
+
+        <insert tableName="followed_team">
+            <column name="user_id" value="5"/>
+            <column name="team_id" value="6"/>
+        </insert>
+
+        <insert tableName="followed_team">
+            <column name="user_id" value="6"/>
+            <column name="team_id" value="6"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="malyskok" id="DayInsert">
+        <insert tableName="day">
+            <column name="date" value="2017-07-25"/>
+            <column name="user_id" value="3"/>
+        </insert>
+
+        <insert tableName="day">
+            <column name="date" value="2017-07-28"/>
+            <column name="user_id" value="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="malyskok" id="TimeIntervalInsert">
+        <insert tableName="time_interval">
+            <column name="start_time" value="08:00"/>
+            <column name="end_time" value="16:00"/>
+            <column name="day_id" value="1"/>
+        </insert>
+
+        <insert tableName="time_interval">
+            <column name="start_time" value="08:00"/>
+            <column name="end_time" value="12:00"/>
+            <column name="day_id" value="2"/>
+        </insert>
+
+        <insert tableName="time_interval">
+            <column name="start_time" value="14:00"/>
+            <column name="end_time" value="18:00"/>
+            <column name="day_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="dabekb" id="tagDatabase-UsersInsert">
+        <tagDatabase tag="version_1.4"/>
+    </changeSet>
+
+</databaseChangeLog>

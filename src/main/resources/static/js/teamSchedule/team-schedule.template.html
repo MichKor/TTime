@@ -1,0 +1,70 @@
+<div ng-if="$ctrl.users.length > 0">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+                            <h4>{{'WEEKLY_SCHEDULE' | translate}}</h4>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <button id="prevButton" class="btn btn-default" ng-click="$ctrl.loadPreviousWeek()">{{'PREVIOUS' | translate}}</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button id="nextButton" class="btn btn-default" ng-click="$ctrl.loadNextWeek()">{{'NEXT' | translate}}</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button id="todayButton" class="btn btn-default" ng-click="$ctrl.loadCurrentWeek()">{{'TODAY' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                </div>
+                <!-- Table -->
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>{{'USER' | translate}}</td>
+                            <td>{{daysDetails[0].name | translate}} {{daysDetails[0].date}}</td>
+                            <td>{{daysDetails[1].name | translate}} {{daysDetails[1].date}}</td>
+                            <td>{{daysDetails[2].name | translate}} {{daysDetails[2].date}}</td>
+                            <td>{{daysDetails[3].name | translate}} {{daysDetails[3].date}}</td>
+                            <td>{{daysDetails[4].name | translate}} {{daysDetails[4].date}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-click="$ctrl.showSchedule(member.user.id, member.user.displayName)" ng-repeat="member in $ctrl.users | orderBy: 'user.username'">
+                            <td>{{member.user.displayName}}</td>
+                            <td>
+                                <time-interval interval="interval" ng-repeat="interval in $ctrl.getProperIntervals(daysDetails[0].date, member) | orderBy:'startTime[0]'" />
+                            </td>
+                            <td>
+                                <time-interval interval="interval" ng-repeat="interval in $ctrl.getProperIntervals(daysDetails[1].date, member) | orderBy:'startTime[0]'" />
+                            </td>
+                            <td>
+                                <time-interval interval="interval" ng-repeat="interval in $ctrl.getProperIntervals(daysDetails[2].date, member) | orderBy:'startTime[0]'" />
+                            </td>
+                            <td>
+                                <time-interval interval="interval" ng-repeat="interval in $ctrl.getProperIntervals(daysDetails[3].date, member) | orderBy:'startTime[0]'" />
+                            </td>
+                            <td>
+                                <time-interval interval="interval" ng-repeat="interval in $ctrl.getProperIntervals(daysDetails[4].date, member) | orderBy:'startTime[0]'" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+
+    </div>
+    <div ng-if="$ctrl.users.length === 0">
+        {{'NO_USERS_IN_TEAM' | translate}}
+    </div>

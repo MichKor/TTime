@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <form name="editProfileForm" validate-submit="$ctrl.submit()">
+        <validator-error></validator-error>
+
+        <div class="row form-group">
+            <h2 class="col-sm-9"><i class="fa fa-cog" aria-hidden="true"></i> {{'SETTINGS_PROFILE' | translate}}</h2>
+        </div>
+        <div class="row form-group">
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">{{'NOTIFICATION_TEMPLATE' | translate}}:</label>
+                <div class="col-sm-10">
+                    <div class="radio">
+                        <label><input type="radio" ng-model="$ctrl.notifications" ng-value="{{true}}">{{'YES' | translate}}</label>
+                        <label><input type="radio" ng-model="$ctrl.notifications" ng-value="{{false}}">{{'NO' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">{{'USER_LANGUAGE' | translate}}:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-options="lang.tag as lang.displayName | translate for lang in $ctrl.languages" ng-model="$ctrl.selectedLanguage"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> {{'SAVE' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>

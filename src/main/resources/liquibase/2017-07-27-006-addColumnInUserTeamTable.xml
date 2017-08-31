@@ -1,0 +1,18 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet author="dabekb" id="addAdminRightsColumn">
+        <addColumn schemaName="public"
+                   tableName="user_team">
+            <column name="admin_rights" type="boolean"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="dabekb" id="tagDatabase-addAdminRightsColumn">
+        <tagDatabase tag="version_1.6"/>
+    </changeSet>
+
+</databaseChangeLog>

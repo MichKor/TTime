@@ -1,0 +1,4 @@
+<div ng-show="times == null || times.length == 0">{{'ABSENCE' | translate}}</div>
+<time-interval ng-show="times != null" ng-repeat="time in times | orderBy: ['startTime[0]', 'startTime[1]', 'endTime[0]', 'endTime[1]']" interval="time">
+    <a class="clickable unselectable" ng-click="removeTime(time)" ng-show="removable !== undefined">X</a>
+</time-interval>

@@ -1,0 +1,35 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="dabekb" id="addExampleTeam">
+        <insert tableName="team">
+            <column name="name" value="Team1"/>
+        </insert>
+
+        <insert tableName="team">
+            <column name="name" value="Team2"/>
+            <column name="is_private" value="true"/>
+        </insert>
+
+        <insert tableName="team">
+            <column name="name" value="Team3"/>
+        </insert>
+
+        <insert tableName="team">
+            <column name="name" value="Team4"/>
+            <column name="is_private" value="true"/>
+        </insert>
+
+        <insert tableName="team">
+            <column name="name" value="Team5"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="dabekb" id="tagDatabase-addExampleTeam">
+        <tagDatabase tag="version_1.3"/>
+    </changeSet>
+
+</databaseChangeLog>

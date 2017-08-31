@@ -1,0 +1,91 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2>{{'LIST_REPORTS' | translate}}</h2>
+        <div ng-show="$ctrl.reports != null && $ctrl.reports.length > 0" class="row" ng-repeat="report in $ctrl.reports | orderBy: '-filename'">
+            <span ng-click="$ctrl.downloadReport(report)">
+                <img src="../../css/image/report-icon.png" class="csv_icon" />
+                {{report.fileName}}
+            </span>
+        </div>
+        <div ng-show="$ctrl.reports == null || $ctrl.reports.length === 0" class="row">
+            {{'NO_REPORTS' | translate}}
+        </div>
+    </div>
+   
+    <div class="row" ng-show="$root.hasAuthority('ROLE_ADMIN')">
+        <h2>{{'GENERIC_REPORT' | translate}}</h2>
+        <form validate-submit="$ctrl.generate()">
+            <validator-error></validator-error>
+            <div class="row">
+                <label class="col-md-3" ng-cloak>{{'CHOOSE_MONTH' | translate}}:</label>
+                <div class="col-md-3 input-group">
+                    <input name="{{'MONTH' | translate}}" type="text" class="form-control"
+                           uib-datepicker-popup="yyyy-MM"
+                           datepicker-template-url="js/reports/datepicker.template.html"
+                           datepicker-options="dateOptions"
+                           ng-click="openCalendarPopup()"
+                           ng-model="$ctrl.selectedMonth"
+                           is-open="popup.opened"
+                           show-button-bar="false"
+                           required/>
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openCalendarPopup()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row top-buffer">
+                <label for="projects" class="col-md-3" ng-cloak>{{'CHOOSE_PROJECT' | translate}}:</label>
+                <ui-select id="projects" class="col-md-3" multiple ng-model="$ctrl.selectedProjects" theme="bootstrap"
+                           close-on-select="false" style="width: 25%"
+                           title="{{'CHOOSE_PROJECT' | translate}}" name="REPORTS_PROJECTS"
+                           required>
+                    <ui-select-match placeholder="{{'LIST_OF_PROJECTS' | translate}}">{{$item.key}}</ui-select-match>
+                    <ui-select-choices repeat="project in $ctrl.projects | filter:$select.search">
+                        <div ng-bind-html="project.key | highlight: $select.search"></div>
+                        <small>
+                            {{project.name}}
+                        </small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="row top-buffer">
+                <label for="users" class="col-md-3">{{'ADD_USERS' | translate}}</label>
+                <ui-select id="users" class="col-md-3" multiple ng-model="$ctrl.selectedUsers" theme="bootstrap"
+                           user-query-changed title="{{'CHOOSE_USER' | translate}}" style="width: 25%">
+                    <ui-select-match placeholder="{{'CHOOSE_USER' | translate}}">{{$item.displayName}}</ui-select-match>
+                    <ui-select-choices repeat="user in $ctrl.users | filter: {displayName: $select.search} | filter: $ctrl.takenUsersName">
+                        <div ng-bind-html="user.displayName | highlight: $select.search"></div>
+                        <small>
+                            E-mail: <span ng-bind-html="''+user.email | highlight: $select.search"></span>
+                        </small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="row top-buffer">
+                <button class="col-md-2 btn btn-info" type="submit">{{'GENERATE' | translate}}</button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="row" ng-show="$root.hasAuthority('ROLE_ADMIN')">
+        <!-- TODO: Zablokowanie tej opcji na nieadministratorów -->
+        <h2>{{'SEND_REPORT' | translate}}</h2>
+        <form validate-submit="$ctrl.sendReport()">
+            <div class="row">
+                <label class="col-md-3">{{'CHOOSE_FILE' | translate}}:</label>
+                <div class="col-md-3 input-group">
+                    <span class="input-group-btn">
+                       <label class="btn btn-primary">
+                           {{'BROWSE' | translate}} <input type="file" file-model="$ctrl.file" style="display: none;">
+                       </label>
+                    </span>
+                    <span class="form-control">{{$ctrl.file.name}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <button class="col-md-2 btn btn-info" type="submit">{{'SEND_FILE' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

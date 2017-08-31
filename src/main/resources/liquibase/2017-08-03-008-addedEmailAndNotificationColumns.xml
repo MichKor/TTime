@@ -1,0 +1,43 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet author="budrowskim" id="1.8-emailColumn">
+        <addColumn tableName="users">
+            <column name="email" type="varchar(127)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="budrowskim" id="1.8-dummyEmails">
+        <update tableName="users">
+            <column name="email" value="dummy@tt.com.pl" />
+        </update>
+    </changeSet>
+
+    <changeSet author="budrowskim" id="1.8-emailNotNull">
+        <addNotNullConstraint tableName="users" columnName="email" />
+    </changeSet>
+
+    <changeSet author="budrowskim" id="1.8-notificationsColumn">
+        <addColumn tableName="users">
+            <column name="notifications_enabled" type="boolean" defaultValueBoolean="true" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="budrowskim" id="1.8-defaultValues">
+        <update tableName="users">
+            <column name="notifications_enabled" valueBoolean="true" />
+        </update>
+    </changeSet>
+
+    <changeSet author="budrowskim" id="1.8-notificationsNotNull">
+        <addNotNullConstraint tableName="users" columnName="notifications_enabled" />
+    </changeSet>
+
+    <changeSet author="budrowskim" id="tagDatabase-addedEmailAndNotificationColumns">
+        <tagDatabase tag="version_1.8"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,9 @@
+<div class="time_interval">
+    <div ng-show="interval == null">
+        {{'ABSENCE' | translate}}
+    </div>
+    <div ng-show="interval != null">
+        {{interval.startTime[0] | numberZeros: 2}}:{{interval.startTime[1] | numberZeros: 2}} - {{interval.endTime[0] | numberZeros: 2}}:{{interval.endTime[1] | numberZeros: 2}}
+        <ng-transclude />
+    </div>
+</div>

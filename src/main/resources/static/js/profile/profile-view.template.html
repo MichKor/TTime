@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="row form-group">
+        <h2 class="col-sm-9"><i class="fa fa-user-circle" aria-hidden="true"></i> {{'MY_PROFILE' | translate}}</h2>
+    </div>
+    <div class="row">
+        <h2 class="col-sm-9"></h2>
+        <a ui-sref="dashboard.profile-edit" class="pull-right btn btn-primary"><i class="fa fa-cog" aria-hidden="true"></i>
+             {{'SETTINGS_PROFILE' | translate}}</a>
+    </div>
+    <div class="row">
+        <label for="username" class="col-sm-2">{{'LOGIN' | translate}}</label>
+        <span id="username" class="col-sm-10">{{$root.currentUser.username}}</span>
+    </div>
+    <div class="row">
+        <label for="display-name" class="col-sm-2">{{'DISPLAY_NAME' | translate}}</label>
+        <span id="display-name" class="col-sm-10">{{$root.currentUser.displayName}}</span>
+    </div>
+    <div class="row">
+        <label for="email" class="col-sm-2">{{'EMAIL' | translate}}:</label>
+        <span id="email" class="col-sm-10">{{$root.currentUser.email}}</span>
+    </div>
+</div>

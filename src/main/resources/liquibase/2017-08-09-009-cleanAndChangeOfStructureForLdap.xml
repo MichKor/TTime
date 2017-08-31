@@ -1,0 +1,57 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    
+    <changeSet id="1.9-deleteAllTables" author="budrowskim">
+        <delete tableName="time_interval" />
+        <delete tableName="day_week" />
+        <delete tableName="day" />
+        <update tableName="users">
+            <column name="default_template">
+                null
+            </column>
+            <column name="default_team">
+                null
+            </column>
+        </update>
+        <delete tableName="template" />
+        <delete tableName="user_team" />
+        <delete tableName="followed_team" />
+        <delete tableName="users_roles" />
+        <delete tableName="team" />
+        <delete tableName="users" />
+
+        <sql>
+            select setval('day_week_id_seq', 1, false);
+            select setval('day_id_seq', 1, false);
+            select setval('team_id_seq', 1, false);
+            select setval('template_id_seq', 1, false);
+            select setval('time_interval_id_seq', 1, false);
+            select setval('users_id_seq', 1, false);
+        </sql>
+    </changeSet>
+    
+    <changeSet id="1.9-dropPasswordColumn" author="budrowskim">
+        <dropColumn tableName="users">
+            <column name="password" />
+        </dropColumn>
+    </changeSet>
+
+    <changeSet id="1.9-insertDisplayNameColumn" author="budrowskim">
+        <addColumn tableName="users">
+            <column name="display_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1.9-madeLoginUnique" author="budrowskim">
+        <addUniqueConstraint tableName="users" columnNames="username" />
+    </changeSet>
+
+    <changeSet author="budrowskim" id="tagDatabase-cleanAndChangeOfStructureForLdap">
+        <tagDatabase tag="version_1.9"/>
+    </changeSet>
+
+</databaseChangeLog>

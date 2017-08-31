@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        </br></br>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="alert alert-danger" ng-show="$ctrl.error">
+                    <h4>{{'SIGN_IN_ERROR' | translate}} <i class="fa fa-meh-o" aria-hidden="true"></i></h4>
+                </div>
+                <form role="form" ng-submit="$ctrl.login()">
+                    <!--
+                    <div class="form-group">
+                        <label for="username"><i class="fa fa-envelope-o fa-fw"></i> {{'LOGIN' | translate}}</label> <input type="text" class="form-control" id="username" name="username" ng-model="$ctrl.credentials.username" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><i class="fa fa-key fa-fw"></i> {{'PASSWORD' | translate}}</label> <input type="password" class="form-control" id="password" name="password" ng-model="$ctrl.credentials.password" />
+                    </div>
+                    -->
+                    <div class="input-group margin-bottom-sm" id="loginStyle">
+                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                        <input class="form-control" type="text" placeholder="{{'LOGIN' | translate}}" id="username" name="username" ng-model="$ctrl.credentials.username">
+                    </div>
+                    <div class="input-group" id="passwordStyle">
+                        <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                        <input class="form-control" type="password" placeholder="{{'PASSWORD' | translate}}" id="password" name="password" ng-model="$ctrl.credentials.password">
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in" aria-hidden="true"></i> {{'SIGN_IN' | translate}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>

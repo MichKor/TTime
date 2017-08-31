@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+    <head>
+        <title>TTimeManager</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="css/image/tt.png" />
+        <link rel='stylesheet' href='css/angular-material.min.css'/>
+        <link rel="stylesheet" href="css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/cookie_style.css">
+
+        <link rel='stylesheet' href='css/ui-bootstrap-csp.css'/>
+
+        <link rel='stylesheet' href='fullcalendar/fullcalendar.css'/>
+        <link rel='stylesheet' media ='print' href='fullcalendar/fullcalendar.print.css'/>
+        <link rel='stylesheet' href='css/select.css'/>
+        <link rel='stylesheet' href="css/bootstrap-timepicker.css" />
+        <link rel='stylesheet' href="css/angular-bootstrap-toggle.css" />
+        <link rel='stylesheet' href="css/font-awesome.css" />
+        <link rel='stylesheet' href="css/selectize.default.css" />
+
+        <style type="text/css">
+            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+                display: none !important;
+            }
+        </style>
+    </head>
+
+    <body ng-app="mainApp">
+        <div class="loader-background">
+            <div><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div>
+        </div>
+        
+        <div ng-cloak>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid" ng-controller="mainController">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                                aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">{{'TOGGLE_NAVIGATION' | translate}}</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <img src="css/image/tt.png" id="ttIcon" ng-show="!isLoggedIn()"><a ng-show="!isLoggedIn()" class="navbar-brand" ui-sref="home"> TTimeManager</a>
+                        <img src="css/image/tt.png" id="ttIcon" ng-show="isLoggedIn()"><a ng-show="isLoggedIn()" class="navbar-brand" ui-sref="dashboard.teamSchedule({ 'teamId': null, 'teamName': null })"> TTimeManager</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li ng-show="isLoggedIn()"><a ui-sref="dashboard.schedule({'userId': null})" ui-sref-opts="{reload: 'dashboard.schedule'}"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> {{'SCHEDULE' | translate}}</a></li>
+                            <li ng-show="isLoggedIn()"><a ui-sref="dashboard.templates"><i class="fa fa-table" aria-hidden="true"></i> {{'TEMPLATES' | translate}}</a></li>
+                            <li ng-show="isLoggedIn()"><a ui-sref="dashboard.teams"><i class="fa fa-users" aria-hidden="true"></i> {{'TEAMS' | translate}}</a></li>
+                            <li ng-show="isLoggedIn() && $root.jiraReportsEnabled"><a ui-sref="dashboard.reports"><i class="fa fa-file-text" aria-hidden="true"></i> {{'REPORTS' | translate}}</a></li>
+                        </ul>
+                        
+                        
+
+                        <ul ng-show="isLoggedIn()" class="nav navbar-nav navbar-right">
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle-o" aria-hidden="true"></i> {{'WELCOME' | translate}}, {{currentUser.displayName}} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a ui-sref="dashboard.profile-view"><i class="icon-cog"></i><i class="fa fa-user-circle" aria-hidden="true"></i> {{'MY_PROFILE' | translate}}</a></li>
+                                    <li class="divider"></li>
+                                    <li><a ui-sref="dashboard.profile-edit"><i class="icon-cog"></i><i class="fa fa-cog" aria-hidden="true"></i> {{'SETTINGS_PROFILE' | translate}}</a></li>
+                                    <li class="divider"></li>
+                                    <li><a ng-click="logout()"><i class="icon-off"></i><i class="fa fa-sign-out" aria-hidden="true"></i> {{'LOG_OUT' | translate}}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-language" aria-hidden="true"></i> {{'LANGUAGE' | translate}}
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="btn btn-primary" id="translate_pl" ng-click="changeLanguage('pl')"></a></li>
+                                    <li class="divider"></li>
+                                    <li><a class="btn btn-primary" id="translate_eng" ng-click="changeLanguage('en')"></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <div class="message-box" ng-if="errMessage !== null">
+                    <alert-message alert-message="errMessage"></alert-message>
+                </div>
+                <div ui-view></div>
+            </div>
+        </div>
+
+        <script src="js/libs/jquery-3.2.1.js"></script>
+        <script src="js/libs/angular.js"></script>
+        <script src="js/libs/angular-ui-router.js"></script>
+        <script src="js/libs/angular-resource.js"></script>
+        <script src="js/libs/angular-animate.js"></script>
+        <script src="js/libs/bootstrap.js"></script>
+        <script src="js/libs/angular-material.min.js"></script>
+        <script src="js/libs/angular-aria.js"></script>
+        <script src="js/libs/angular-breadcrumb.js"></script>
+        <script src="js/libs/angular-bootstrap-toggle.js"></script>
+
+        <script src="js/libs/angular-translate.js"></script>
+        <script src="js/libs/angular-cookies.js"></script>
+        <script src="js/libs/angular-translate-storage-cookie.js"></script>
+        <script src="js/libs/angular-translate-loader-partial.js"></script>
+        <script src="js/libs/angular-translate-loader-static-files.min.js"></script>
+        <script src="js/libs/angular-translate-loader-url.js"></script>
+        <script src="js/libs/angular-translate-storage-local.min.js"></script>
+        <script src="js/libs/angular-translate-storage-cookie.js"></script>
+        <script id="cookieinfo" src="js/translations-cookieInfo/cookieInfo.min.js"></script>
+
+        <script src="js/libs/angular-sanitize.js"></script>
+        <script src="js/libs/select.js"></script>
+        <script src="js/libs/contextMenu.js"></script>
+        <script src="js/libs/bootstrap-timepicker.js"></script>
+        <script src="js/libs/underscore.js"></script>
+        <script src="js/libs/smart-table.js"></script>
+
+        <script src="js/libs/ui-bootstrap-tpls-2.5.0.js"></script>
+
+        <script src="fullcalendar/lib/moment.min.js"></script>
+        <script src="fullcalendar/fullcalendar.js"></script>
+        <script src="fullcalendar/locale-all.js"></script>
+        <script src="js/libs/calendar.js"></script>
+
+        <script src="js/app.module.js"></script>
+        <script src="js/app.config.js"></script>
+        <script src="js/app.run.js"></script>
+        <script src="js/app.controller.js"></script>
+        <script src="js/translations-cookieInfo/app-translations.js"></script>
+
+        <script src="js/services/team.service.js"></script>
+        <script src="js/services/template.service.js"></script>
+        <script src="js/services/user.service.js"></script>
+        <script src="js/services/day.service.js"></script>
+        <script src="js/services/functions-calendar.service.js"></script>
+        <script src="js/services/time-utilities.service.js"></script>
+        <script src="js/services/user-default-team.service.js"></script>
+        <script src="js/services/alert-message.service.js"></script>
+        <script src="js/services/schedule-functions.service.js"></script>
+        <script src="js/services/project.service.js"></script>
+        <script src="js/services/errorService.js"></script>
+        <script src="js/services/utilities.service.js"></script>
+        <script src="js/services/report.service.js"></script>
+
+        <script src="js/home/home.component.js"></script>
+        <script src="js/dashboard/dashboard.component.js"></script>
+        <script src="js/dashboard/interval-display.directive.js"></script>
+        <script src="js/dashboard/welcome-modal.component.js"></script>
+        <script src="js/dashboard/edit-schedule/edit-schedule.component.js"></script>
+        <script src="js/dashboard/edit-schedule/template-choice.component.js"></script>
+        <script src="js/dashboard/edit-schedule/edit-hours.component.js"></script>
+        <script src="js/schedule/schedule.component.js"></script>
+        <script src="js/teamSchedule/team-schedule.component.js"></script>
+        <script src="js/teams/teams.component.js"></script>
+        <script src="js/teams/editTeam.component.js"></script>
+        <script src="js/teams/addTeam.component.js"></script>
+        <script src="js/teams/deleteTeam.component.js"></script>
+        <script src="js/profile/profile-view.component.js"></script>
+        <script src="js/profile/edit/profile-edit.component.js"></script>
+        <script src="js/reports/reports.component.js"></script>
+        <script src="js/reports/month-name.filter.js"></script>
+        <script src="js/reports/file-model.directive.js"></script>
+
+        <script src="js/templates/templates.component.js"></script>
+        <script src="js/templates/time-display.directive.js"></script>
+        <script src="js/templates/edit-template-modal.component.js"></script>
+        <script src="js/templates/delele-template-modal.component.js"></script>
+        <script src="js/login/login.component.js"></script>
+
+        <script src="js/directives/validate-submit.directive.js"></script>
+        <script src="js/directives/validator-error.directive.js"></script>
+        <script src="js/directives/alert-message.directive.js"></script>
+        <script src="js/directives/template-for-day.directive.js"></script>
+        <script src="js/directives/show-tooltip.directive.js"></script>
+        <script src="js/directives/time-interval.directive.js"></script>
+        <script src="js/directives/pageSelect.directive.js"></script>
+        <script src="js/directives/user-query-changed.directive.js"></script>
+        <script src="js/filters/number-zeros.filter.js"></script>
+
+
+        <script src="js/loader-interceptor.factory.js"></script>
+    </body>
+</html>

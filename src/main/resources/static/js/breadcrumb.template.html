@@ -1,0 +1,8 @@
+<h4>
+    <ol class="breadcrumb">
+        <li ng-repeat="step in steps" ng-class="{active: $last}" ng-switch="$last || !!step.abstract">
+            <a ng-switch-when="false" ui-sref="{{ (step.ncyBreadcrumbStateRef === 'dashboard')? 'dashboard.teamSchedule' : step.ncyBreadcrumbStateRef }}" ui-sref-opts="{reload: 'dashboard.teamSchedule'}">{{step.ncyBreadcrumbLabel}}</a>
+            <span ng-switch-when="true">{{step.ncyBreadcrumbLabel}}</span>
+        </li>
+    </ol>
+</h4>

@@ -1,0 +1,6 @@
+<div class="alert alert-danger">
+    <h3>{{'VALIDATION_ERROR' | translate}}</h3>
+    <ul>
+        <li ng-repeat="msg in $ctrl.messages"><a ng-click="$ctrl.focusElement(msg.inputElement)">{{msg.name | translate}} - {{msg.message | translate}}</a></li>
+    </ul>
+</div>

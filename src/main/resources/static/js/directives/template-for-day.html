@@ -1,0 +1,10 @@
+<span ng-repeat="template in templates">
+    <button
+            type="button" class="btn btn-secondary" show-tooltip
+            ng-click="sendTemplate(template)"
+            ng-show="template.dayWeeks.length"
+            data-toggle="tooltip" data-placement="bottom"
+            title="{{fillWithTimeIntervals(template)}}">
+        {{template.name}}
+    </button>
+</span>
